@@ -1,0 +1,1 @@
+This is a short plotting script to show the current temperature and wind speed for victoria, using the BOM's publically available data. Most of the actual machinery comes from the [weather-au](https://github.com/tonyallan/weather-au) repo, I mainly added the function to place the data points in the map. 

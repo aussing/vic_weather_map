@@ -1,10 +1,10 @@
-./snapshots/
+snapshots
+snapshots/*
+*.gif
 
 # mypy
 .mypy_cache/
 .DS_Store
-
-
 
 # Environments
 .env
