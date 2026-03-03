@@ -1,6 +1,6 @@
 import sys
-sys.path.insert(0, '/Users/101125182/Documents/code/weather-au/')
-import weather_au
+# sys.path.insert(0, '/Users/101125182/Documents/code/vic_weather_map')
+import vic_weather_map
 
 # https://docs.python.org/3/library/xml.dom.html#module-xml.dom
 
@@ -9,8 +9,8 @@ class Observations:
     def __init__(self, state=None):
 
         self.state = state
-        self.url = weather_au.OBSERVATION_PRODUCT_URL[state]
-        self.soup = weather_au.fetch_xml(self.url)
+        self.url = vic_weather_map.OBSERVATION_PRODUCT_URL[state]
+        self.soup = vic_weather_map.fetch_xml(self.url)
         self.identifier = self.soup.identifier.contents[0]
         self.acknowedgment = f'Data courtesy of Bureau of Meteorology ({self.url})'
     
@@ -109,5 +109,6 @@ class Observations:
                     return wind_spd_kmh.contents[0]
 
         return None
+    
     def __str__(self):
         return str(self.soup)

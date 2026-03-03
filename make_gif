@@ -1,5 +1,4 @@
-
-magick -delay 75 ./snapshots/$(date +%Y/%m_%b/%d_%a)/*.png -scale 2750x2000 ./snapshots/$(date +%Y/%m_%b/%d_%a)/weather.gif
-
-<!-- magick -delay 75 *.png -scale 2750x2000 weather.gif -->
-
+magick -delay 30 ./snapshots/$(date +%Y/%m_%b/%d_%a)/*.png -scale 2750x2000 ./snapshots/$(date +%Y/%m_%b/%d_%a)/weather.gif
+echo "./snapshots/$(date +%Y/%m_%b/%d_%a)/weather.gif"
+## magick -delay 30 ./snapshots/$(date +%Y/%m_%b/%d_%a)/*.png -scale 2750x2000 ./snapshots/$(date +%Y/%m_%b/%d_%a)/weather.gif 
+## magick -delay 75 *.png -scale 2750x2000 weather.gif -->

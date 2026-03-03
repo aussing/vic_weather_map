@@ -8,7 +8,7 @@ import cmasher as cmr
 from datetime import datetime
 import schedule
 
-sys.path.insert(0, './')
+sys.path.insert(0, '/Users/101125182/Documents/code/vic_weather_map/')
 from vic_weather_map import observations
 
 def main_loop():
@@ -26,7 +26,7 @@ def main_loop():
     station_id_list = np.array(station_id_list)
 
     fig,axs = plt.subplots(figsize=(11,8))
-    img = np.asarray(Image.open('./vic_map.png'))
+    img = np.asarray(Image.open('./Vic_map.png'))
     plt.imshow(img,alpha=0.5)
 
     len_x, len_y = img.shape[1], img.shape[0]
@@ -74,6 +74,8 @@ def main_loop():
     
     folder_file_name = './snapshots/' + f'{year}/{month}/{day}/' + formatted_file_name
     fig.savefig(f'{folder_file_name}.png',dpi=250)
+    fig.savefig(f'./latest.png',dpi=250)
+    plt.close()
 
     print(f'{folder_file_name}.png saved successfully!')
 
