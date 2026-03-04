@@ -1,5 +1,5 @@
 import sys
-# sys.path.insert(0, '/Users/101125182/Documents/code/vic_weather_map')
+# sys.path.insert(0, '../vic_weather_map')
 import vic_weather_map
 
 # https://docs.python.org/3/library/xml.dom.html#module-xml.dom

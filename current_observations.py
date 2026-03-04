@@ -1,5 +1,7 @@
 import os
 import sys
+import shutil
+import time
 from PIL import Image
 import numpy as np
 import matplotlib as mpl
@@ -61,31 +63,51 @@ def main_loop():
     year = now.strftime("%Y")
     month = now.strftime("%m_%b")
     day = now.strftime("%d_%a")
-    if not os.path.exists(f'./snapshots/{year}/'): 
-        os.makedirs(f'./snapshots/{year}')
-    if not os.path.exists(f'./snapshots/{year}/{month}/'): 
-        os.makedirs(f'./snapshots/{year}/{month}/')
-    if not os.path.exists(f'./snapshots/{year}/{month}/{day}/'):    
-        os.makedirs(f'./snapshots/{year}/{month}/{day}/')
+    # if not os.path.exists(f'./snapshots/{year}/'): 
+    #     os.makedirs(f'./snapshots/{year}')
+    # if not os.path.exists(f'./snapshots/{year}/{month}/'): 
+    #     os.makedirs(f'./snapshots/{year}/{month}/')
+    # if not os.path.exists(f'./snapshots/{year}/{month}/{day}/'):    
+    #     os.makedirs(f'./snapshots/{year}/{month}/{day}/')
 
     formatted_file_name = now.strftime("%H_%M")
     formatted_snapshot_title = now.strftime("%I:%M %p - %d/%B/%Y ")
     plt.text(len_x/2.5, len_y/10, formatted_snapshot_title, size='xx-large',weight='bold')
     
-    folder_file_name = './snapshots/' + f'{year}/{month}/{day}/' + formatted_file_name
+    # folder_file_name = './snapshots/' + f'{year}/{month}/{day}/' + formatted_file_name
+    folder_file_name = './snapshots/today/' + formatted_file_name
     fig.savefig(f'{folder_file_name}.png',dpi=250)
     fig.savefig(f'./latest.png',dpi=250)
     plt.close()
 
     print(f'{folder_file_name}.png saved successfully!')
 
+def copy_plots():
+    
+    shutil.rmtree('./snapshots/yesterday/')
+    time.sleep(2)
+    shutil.copytree(f'./snapshots/today/', './snapshots/yesterday/')
+
+def delete_today():
+    shutil.rmtree('./snapshots/today/')
+    time.sleep(2)
+    os.makedirs('./snapshots/today/')
+    print('Deleted today\'s snapshots')
+
 if __name__ == "__main__":
     
     if not os.path.exists('./snapshots'):
         os.makedirs('./snapshots')
+    if not os.path.exists('./snapshots/today/'):
+        os.makedirs('./snapshots/today/')
+    # if not os.path.exists('./snapshots/yesterday/'):
+    #     os.makedirs('./snapshots/yesterday/')
 
     main_loop()
+    # copy_plots()
     schedule.every(10).minutes.do(main_loop)
+    schedule.every().day.at("23:45").do(copy_plots)
+    schedule.every().day.at("00:05").do(delete_today)
     while True:
         schedule.run_pending()
     
