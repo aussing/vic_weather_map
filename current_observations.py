@@ -10,7 +10,12 @@ import cmasher as cmr
 from datetime import datetime
 import schedule
 
-sys.path.insert(0, '/Users/101125182/Documents/code/vic_weather_map/')
+##### TODO:
+##### Add text for wind speed
+##### Add text for rainfall since 9am
+#####
+
+sys.path.insert(0, './')
 from vic_weather_map import observations
 
 def main_loop():
@@ -54,7 +59,7 @@ def main_loop():
             plt.arrow(x,y, dx=dx,dy=dy, width=4, alpha=0.5)
         
         plt.scatter(x,y, c='k',s=0.01)
-        plt.text(x+5,y+5, air_temperature, size='x-large', weight='bold', color=cmap(norm(air_temperature)))
+        plt.text(x+5,y+5, str(air_temperature), size='x-large', weight='bold', color=cmap(norm(air_temperature)))
 
     axs.set_axis_off()
     fig.tight_layout()
@@ -83,7 +88,6 @@ def main_loop():
     print(f'{folder_file_name}.png saved successfully!')
 
 def copy_plots():
-    
     shutil.rmtree('./snapshots/yesterday/')
     time.sleep(2)
     shutil.copytree(f'./snapshots/today/', './snapshots/yesterday/')
@@ -100,11 +104,9 @@ if __name__ == "__main__":
         os.makedirs('./snapshots')
     if not os.path.exists('./snapshots/today/'):
         os.makedirs('./snapshots/today/')
-    # if not os.path.exists('./snapshots/yesterday/'):
-    #     os.makedirs('./snapshots/yesterday/')
-
+    
     main_loop()
-    # copy_plots()
+    
     schedule.every(10).minutes.do(main_loop)
     schedule.every().day.at("23:45").do(copy_plots)
     schedule.every().day.at("00:05").do(delete_today)
